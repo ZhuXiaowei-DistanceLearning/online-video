@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: server03
+eureka:
+  client:
+    service-url:
+      zone3: http://localhost:8763/eureka/
+      zone4: http://localhost:8764/eureka/
+    availability-zones:
+      region-west: zone3,zone4
+    region: region-west
+  instance:
+    prefer-ip-address: true
+    metadata-map:
+      zone: zone1
+    ip-address: 127.0.0.1
+  server:
+    wait-time-in-ms-when-sync-empty: 0 #
+    enable-self-preservation: false # 是否开启自我保护模式
+server:
+  port: 8763

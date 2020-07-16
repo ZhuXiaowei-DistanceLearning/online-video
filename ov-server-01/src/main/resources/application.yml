@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: server01
+eureka:
+  client:
+    service-url:
+      zone1: http://localhost:8761/eureka/
+      zone2: http://localhost:8762/eureka/
+    availability-zones:
+      region-east: zone1,zone2
+    region: region-east
+  instance:
+    prefer-ip-address: true
+    metadata-map:
+      zone: zone1,zone2
+    ip-address: 127.0.0.1
+  server:
+    wait-time-in-ms-when-sync-empty: 0 #
+    enable-self-preservation: false # 是否开启自我保护模式
+server:
+  port: 8761
