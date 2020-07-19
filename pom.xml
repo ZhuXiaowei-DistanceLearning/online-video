@@ -18,6 +18,7 @@
         <module>ov-gateway</module>
         <module>ov-video</module>
         <module>ov-config</module>
+        <module>ov-user</module>
     </modules>
 
     <properties>
