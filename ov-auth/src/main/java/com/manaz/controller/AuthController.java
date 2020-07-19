@@ -15,9 +15,21 @@ import org.springframework.web.client.RestTemplate;
 public class AuthController {
     @Autowired
     private RestTemplate restTemplate;
+
+    /**
+     * 授权
+     * @return
+     */
     @GetMapping()
     public ResponseEntity getAuthoriztion(){
         String result = restTemplate.getForObject("http://gateway-service/test?$_var1=100&&$_var2=200",String.class);
         return ResponseEntity.ok(result);
+    }
+
+    /**
+     * 认证
+     */
+    public ResponseEntity getAuthentication(){
+        return ResponseEntity.ok(null);
     }
 }

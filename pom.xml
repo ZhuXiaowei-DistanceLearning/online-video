@@ -17,6 +17,7 @@
         <module>ov-auth</module>
         <module>ov-gateway</module>
         <module>ov-video</module>
+        <module>ov-config</module>
     </modules>
 
     <properties>

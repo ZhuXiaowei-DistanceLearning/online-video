@@ -7,6 +7,15 @@ spring:
         locator:
           lower-case-service-id: true
           enabled: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
 server:
   port: 10010
 eureka:

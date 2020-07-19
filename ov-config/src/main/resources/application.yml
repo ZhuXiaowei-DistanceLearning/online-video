@@ -1,0 +1,5 @@
+server:
+  port: 10111
+spring:
+  application:
+    name: config-service
