@@ -1,16 +1,19 @@
 package com.manaz.filter;
 
-import com.manaz.enums.ExceptionEnums;
 import com.manaz.exception.BaseException;
 import com.manaz.utils.JwtUtils;
+import com.manaz.vo.JsonResult;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
-import org.springframework.http.HttpStatus;
+import org.springframework.cloud.gateway.route.Route;
+import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
+import java.net.URI;
 
 /**
  * @author zxw
@@ -20,11 +23,23 @@ import java.util.List;
 public class GlobalFilters implements GlobalFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        List<String> authorization = exchange.getRequest().getHeaders().get("Authorization");
-        if (authorization.size() == 0) {
-            throw new BaseException(ExceptionEnums.USER_OR_PASSWORD_ERROR);
+        Route gatewayUri = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
+        URI uri = gatewayUri.getUri();
+        ServerHttpRequest request = exchange.getRequest();
+        HttpHeaders headers = request.getHeaders();
+        String token = headers.getFirst(JwtUtils.HEADER_AUTH);
+        Object data = JwtUtils.verifyToken(token).getData();
+        ServerHttpRequest.Builder mutate = request.mutate();
+        if (data == null) {
+            throw new BaseException(JsonResult.error("token已过期，请重新登录"));
         }
-        Boolean b = JwtUtils.verifyToken(authorization.get(0));
-        return b ? chain.filter(exchange) : exchange.getResponse().setComplete();
+//        List<String> authorization = exchange.getRequest().getHeaders().get("Authorization");
+//        if (authorization.size() == 0) {
+//            throw new BaseException(ExceptionEnums.USER_OR_PASSWORD_ERROR);
+//        }
+//        Boolean b = JwtUtils.verifyToken(authorization.get(0));
+//        return b ? chain.filter(exchange) : exchange.getResponse().setComplete();
+        mutate.header("x-user-serviceName", uri.getHost());
+        return chain.filter(exchange.mutate().request(mutate.build()).build());
     }
 }

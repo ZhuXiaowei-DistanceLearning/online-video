@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
  * @author zxw
  * @date 2020/7/18 12:51
  */
-public class RouteFilter implements GatewayFilter, Ordered {
+public class RouteFilter implements GatewayFilter {
     private static Logger logger = LoggerFactory.getLogger(RouteFilter.class);
     private static final String COUNT_TIME = "count-time";
 
@@ -32,7 +32,4 @@ public class RouteFilter implements GatewayFilter, Ordered {
         );
     }
 
-    public int getOrder() {
-        return 0;
-    }
 }

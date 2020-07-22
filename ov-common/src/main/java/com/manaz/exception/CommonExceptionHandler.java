@@ -13,6 +13,6 @@ public class CommonExceptionHandler {
 
     @ExceptionHandler(BaseException.class)
     public ResponseEntity handlerException(BaseException e) {
-        return ResponseEntity.status(e.getExceptionEnums().getCode()).body(e.getExceptionEnums());
+        return ResponseEntity.status(e.getJsonResult().getCode()).body(e.getJsonResult());
     }
 }

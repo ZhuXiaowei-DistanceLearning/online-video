@@ -7,7 +7,10 @@ import lombok.Data;
  * @date 2020/7/19 16:04
  */
 public enum ExceptionEnums {
-    USER_OR_PASSWORD_ERROR(400, "用户名或密码错误");
+    NO_AUTH_ERROR(400, "用户未认证"),
+    SUCCESS(200, "请求成功"),
+    USER_OR_PASSWORD_ERROR(400, "用户名或密码错误"), ERROR(400, "系统错误");
+
     private Integer code;
     private String msg;
     private Object data;

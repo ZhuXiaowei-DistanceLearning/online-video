@@ -1,6 +1,9 @@
 package com.manaz.utils;
 
+import com.manaz.enums.ExceptionEnums;
+import com.manaz.exception.BaseException;
 import com.manaz.security.pojo.UserReam;
+import com.manaz.vo.JsonResult;
 import io.jsonwebtoken.Jwt;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,29 +19,31 @@ import java.util.Date;
  */
 public class JwtUtils {
     private static final String SECRET = "SECRET";
+    public static final String HEADER_AUTH = "Authorization";
 
     public static String generateToken(UserReam userReam, long expireMinutes) {
+        Long time = System.currentTimeMillis() + 60 * 1000 * expireMinutes;
         String token = Jwts.builder()
                 .setPayload(userReam.toString())
                 .setExpiration(new Date())
+                .setExpiration(new Date(time))
                 .signWith(SignatureAlgorithm.HS512, SECRET)
                 .compact();
         return token;
     }
 
-    public static Boolean verifyToken(String token) {
+    public static JsonResult verifyToken(String token) {
         if (StringUtils.isNotEmpty(token)) {
-            UserReam realm = parseToken(token);
-            if(realm == null){
-                return false;
+            UserReam realm = getToken(token);
+            if (realm == null) {
+                throw new BaseException(JsonResult.error(ExceptionEnums.NO_AUTH_ERROR));
             }
-            return false;
-        }else{
-            return false;
+            return JsonResult.ok(realm, "验证成功");
         }
+        throw new BaseException(JsonResult.error("token值非法"));
     }
 
-    public static UserReam parseToken(String token) {
+    public static UserReam getToken(String token) {
         return (UserReam) Jwts.parser()
                 .setSigningKey(SECRET)
                 .parse(token)

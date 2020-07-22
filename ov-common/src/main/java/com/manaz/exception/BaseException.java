@@ -1,6 +1,7 @@
 package com.manaz.exception;
 
 import com.manaz.enums.ExceptionEnums;
+import com.manaz.vo.JsonResult;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BaseException extends RuntimeException {
-    private ExceptionEnums exceptionEnums;
+    private JsonResult jsonResult;
 }
