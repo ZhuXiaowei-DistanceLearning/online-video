@@ -4,6 +4,7 @@ import com.manaz.VO.BaseQueryParam;
 import com.manaz.mapper.XxxMapper;
 import com.manaz.pojo.xxx;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

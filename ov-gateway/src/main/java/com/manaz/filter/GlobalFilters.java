@@ -8,6 +8,7 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.support.ServerWebExchangeUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.server.RequestPath;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
@@ -21,11 +22,20 @@ import java.net.URI;
  */
 @Component
 public class GlobalFilters implements GlobalFilter {
+    public static final String[] WHITE_LIST = {"/login"};
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         Route gatewayUri = exchange.getRequiredAttribute(ServerWebExchangeUtils.GATEWAY_ROUTE_ATTR);
         URI uri = gatewayUri.getUri();
         ServerHttpRequest request = exchange.getRequest();
+        // 请求路径
+        RequestPath requestPath = exchange.getRequest().getPath();
+        for (String path : WHITE_LIST) {
+            if (path.equals(requestPath.toString())) {
+                return chain.filter(exchange);
+            }
+        }
         HttpHeaders headers = request.getHeaders();
         String token = headers.getFirst(JwtUtils.HEADER_AUTH);
         Object data = JwtUtils.verifyToken(token).getData();

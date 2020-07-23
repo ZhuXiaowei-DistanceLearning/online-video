@@ -14,9 +14,10 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class UserReam {
-    private Long id;
+public class UserRealm {
+    private Integer id;
     private String username;
-    private Set<String> roles;
-    private Set<String> permissions;
+    private List<String> roles;
+    private List<String> permissions;
+    private Integer exp;
 }
