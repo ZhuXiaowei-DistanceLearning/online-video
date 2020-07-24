@@ -28,12 +28,10 @@ public class LoginController {
         rolesSet = new ArrayList<>();
         permissonSet = new ArrayList<>();
         rolesSet.add("管理员");
-        rolesSet.add("教师");
-        rolesSet.add("学生");
         permissonSet.add("/video/update");
         permissonSet.add("/video/get");
-        permissonSet.add("/video/list");
-        permissonSet.add("/video/delete");
+        permissonSet.add("/caca/list");
+        permissonSet.add("/vip/list");
         permissonSet.add("/video/video");
     }
 
@@ -44,7 +42,7 @@ public class LoginController {
         userRealm.setUsername(username);
         userRealm.setPermissions(permissonSet);
         userRealm.setRoles(rolesSet);
-        String token = JwtUtils.generateToken(userRealm, 1);
+        String token = JwtUtils.generateToken(userRealm, 60);
         System.out.println("用户token[" + token + "]");
         return ResponseEntity.ok(JsonResult.ok(token));
     }

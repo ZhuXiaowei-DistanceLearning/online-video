@@ -1,8 +1,9 @@
-package com.manaz.service;
+package com.manaz.service.impl;
 
-import com.manaz.VO.BaseQueryParam;
-import com.manaz.mapper.XxxMapper;
+import com.manaz.VO.xQueryParam;
+import com.manaz.mapper.VipMapper;
 import com.manaz.pojo.xxx;
+import com.manaz.service.VipService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -12,14 +13,14 @@ import java.util.List;
 
 /**
  * @author zxw
- * @date 2019/11/25 20:41
+ * @date 2020/7/24 20:44
  */
 @Service
-public class XxxService {
+public class VipServiceimpl implements VipService {
     @Autowired
-    private XxxMapper xxxMapper;
-
-    public Page cacaIndex(BaseQueryParam baseQueryParam) {
+    private VipMapper vipMapper;
+    @Override
+    public Page cacaIndex(xQueryParam baseQueryParam) {
         //创建匹配器，即如何使用查询条件
         ExampleMatcher matcher = ExampleMatcher.matching().withNullHandler(ExampleMatcher.NullHandler.IGNORE) //构建对象
 //                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING) //改变默认字符串匹配方式：模糊查询
@@ -50,7 +51,7 @@ public class XxxService {
         } else {
             pageable = PageRequest.of(baseQueryParam.getOffset(), baseQueryParam.getLimit(), by);
         }
-        Page<xxx> page = xxxMapper.findAll(sExample, pageable);
+        Page<xxx> page = vipMapper.findAll(sExample, pageable);
         return page;
     }
 }

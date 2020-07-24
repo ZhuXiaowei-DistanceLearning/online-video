@@ -8,8 +8,8 @@ import lombok.Data;
  */
 @Data
 public class BaseQueryParam {
-    private Integer offset;
-    private Integer limit;
+    private Integer offset = 0;
+    private Integer limit = 10;
     private String sort;
     private Boolean DESC;
     private String keyword;

@@ -3,6 +3,9 @@ server:
 spring:
   application:
     name: video-service
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/crawler
 eureka:
   client:
     service-url:

@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
  * @date 2019/11/25 20:42
  */
 @Repository
-public interface XxxMapper extends MongoRepository<xxx, String> {
+public interface VipMapper extends MongoRepository<xxx, String> {
 }

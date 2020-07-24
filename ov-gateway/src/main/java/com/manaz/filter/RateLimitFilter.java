@@ -28,7 +28,7 @@ public class RateLimitFilter implements GlobalFilter {
     Duration refillDuration = Duration.ofDays(1);
     private static final Map<String, Bucket> LOCAL_CACHE = new ConcurrentHashMap<>();
     // 容量
-    int cap = 10;
+    int cap = 100;
 
     private Bucket createNewBucket() {
         Refill refill = Refill.of(refillToken, refillDuration);
