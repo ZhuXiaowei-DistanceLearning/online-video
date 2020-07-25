@@ -1,12 +1,11 @@
 package com.manaz.controller;
 
+import com.manaz.pojo.User;
 import com.manaz.security.pojo.UserRealm;
 import com.manaz.utils.JwtUtils;
 import com.manaz.vo.JsonResult;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -36,14 +35,19 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(String username, String password) {
+    public ResponseEntity login(@RequestBody User user) {
         UserRealm userRealm = new UserRealm();
         userRealm.setId(1);
-        userRealm.setUsername(username);
+        userRealm.setUsername(user.getUsername());
         userRealm.setPermissions(permissonSet);
         userRealm.setRoles(rolesSet);
         String token = JwtUtils.generateToken(userRealm, 60);
         System.out.println("用户token[" + token + "]");
         return ResponseEntity.ok(JsonResult.ok(token));
+    }
+
+    @GetMapping("/getInfo")
+    public ResponseEntity getInfo(String jwt){
+        return ResponseEntity.ok(JwtUtils.getToken(jwt));
     }
 }

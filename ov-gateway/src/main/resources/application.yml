@@ -11,14 +11,15 @@ spring:
         cors-configurations:
           '[/**]':
             alllow-credentials: true
-            allowed-origins: "/**"
+            allowed-origins: "http://localhost:9527"
             allowed-headers: "*"
             allowed-methods:
-              - OPTIONS
-              - GET
-              - PUT
-              - POST
-              - DELETE
+            - OPTIONS
+            - GET
+            - PUT
+            - POST
+            - DELETE
+#              - "*"
 server:
   port: 10010
 eureka:
