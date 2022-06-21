@@ -27,7 +27,7 @@
         <spring-boot.version>2.2.6.RELEASE</spring-boot.version>
         <mybaits-plus.version>3.3.2</mybaits-plus.version>
         <lombok.version>1.18.12</lombok.version>
-        <mysql.version>5.1.47</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <bucket4j.version>4.10.0</bucket4j.version>
     </properties>
     <dependencyManagement>
